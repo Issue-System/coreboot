@@ -979,26 +979,27 @@ static struct device_operations device_ops = {
 
 /* IDs for LPC device of Intel 8 Series Chipset (Lynx Point) */
 static const unsigned short pci_device_ids[] = {
-	0x8c41, /* Mobile Full Featured Engineering Sample. */
-	0x8c42, /* Desktop Full Featured Engineering Sample. */
-	0x8c44, /* Z87 SKU */
-	0x8c46, /* Z85 SKU */
-	0x8c49, /* HM86 SKU */
-	0x8c4a, /* H87 SKU */
-	0x8c4b, /* HM87 SKU */
-	0x8c4c, /* Q85 SKU */
-	0x8c4e, /* Q87 SKU */
-	0x8c4f, /* QM87 SKU */
-	0x8c50, /* B85 SKU */
-	0x8c52, /* C222 SKU */
-	0x8c54, /* C224 SKU */
-	0x8c56, /* C226 SKU */
-	0x8c5c, /* H81 SKU */
-	0x9c41, /* LP Full Featured Engineering Sample */
-	0x9c43, /* LP Premium SKU */
-	0x9c45, /* LP Mainstream SKU */
-	0x9c47, /* LP Value SKU */
-	0 };
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_MOBILE_SAMPLE,  /* Mobile Full Featured Engineering Sample */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_DESKTOP_SAMPLE, /* Desktop Full Featured Engineering Sample */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_Z87,  /* Z87 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_Z85,  /* Z85 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_HM86, /* HM86 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_H87,  /* H87 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_HM87, /* HM87 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_Q85,  /* Q85 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_Q87,  /* Q87 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_QM87, /* QM87 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_B85,  /* B85 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_C222, /* C222 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_C224, /* C224 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_C226, /* C226 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_H_LPC_H81,  /* H81 SKU */
+	PCI_DEVICE_ID_INTEL_LPT_LP_LPC_SAMPLE,     /* LP Full Featured Engineering Sample */
+	PCI_DEVICE_ID_INTEL_LPT_LP_LPC_PREMIUM,    /* LP Premium SKU */
+	PCI_DEVICE_ID_INTEL_LPT_LP_LPC_MAINSTREAM, /* LP Mainstream SKU */
+	PCI_DEVICE_ID_INTEL_LPT_LP_LPC_VALUE,      /* LP Value SKU */
+	0
+};
 
 static const struct pci_driver pch_lpc __pci_driver = {
 	.ops	 = &device_ops,

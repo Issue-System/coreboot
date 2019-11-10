@@ -52,7 +52,7 @@ static struct root_port_config rpc;
 
 static inline int max_root_ports(void)
 {
-	if (pch_is_lp() || pch_silicon_id() == PCI_DEVICE_ID_INTEL_LPT_H81)
+	if (pch_is_lp() || pch_silicon_id() == PCI_DEVICE_ID_INTEL_LPT_H_LPC_H81)
 		return 6;
 
 	return 8;
@@ -744,9 +744,21 @@ static struct device_operations device_ops = {
 
 static const unsigned short pci_device_ids[] = {
 	/* Lynxpoint Mobile */
-	0x8c10, 0x8c12, 0x8c14, 0x8c16, 0x8c18, 0x8c1a, 0x8c1c, 0x8c1e,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP1,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP2,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP3,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP4,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP5,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP6,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP7,
+	PCI_DEVICE_ID_INTEL_LPT_H_PCIE_RP8,
 	/* Lynxpoint Low Power */
-	0x9c10, 0x9c12, 0x9c14, 0x9c16, 0x9c18, 0x9c1a,
+	PCI_DEVICE_ID_INTEL_LPT_LP_PCIE_RP1,
+	PCI_DEVICE_ID_INTEL_LPT_LP_PCIE_RP2,
+	PCI_DEVICE_ID_INTEL_LPT_LP_PCIE_RP3,
+	PCI_DEVICE_ID_INTEL_LPT_LP_PCIE_RP4,
+	PCI_DEVICE_ID_INTEL_LPT_LP_PCIE_RP5,
+	PCI_DEVICE_ID_INTEL_LPT_LP_PCIE_RP6,
 	0
 };
 
