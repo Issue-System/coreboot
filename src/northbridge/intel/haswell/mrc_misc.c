@@ -1662,7 +1662,104 @@ int fcn_fffa7e78(void *ramdata)
 	return 0;
 }
 
-extern uint16_t ref_fffcb80c[];
+static const struct {
+	uint16_t start;
+	uint16_t end;
+} ref_fffcb80c[93] = {
+	{0x0000, 0x003c},
+	{0x0048, 0x004c},
+	{0x005c, 0x0078},
+	{0x0100, 0x013c},
+	{0x0148, 0x014c},
+	{0x015c, 0x0178},
+	{0x0200, 0x023c},
+	{0x0248, 0x024c},
+	{0x025c, 0x0278},
+	{0x0300, 0x033c},
+	{0x0348, 0x034c},
+	{0x035c, 0x0378},
+	{0x0400, 0x043c},
+	{0x0448, 0x044c},
+	{0x045c, 0x0478},
+	{0x0500, 0x053c},
+	{0x0548, 0x054c},
+	{0x055c, 0x0578},
+	{0x0600, 0x063c},
+	{0x0648, 0x064c},
+	{0x065c, 0x0678},
+	{0x0700, 0x073c},
+	{0x0748, 0x074c},
+	{0x075c, 0x0778},
+	{0x0800, 0x083c},
+	{0x0848, 0x084c},
+	{0x085c, 0x0878},
+	{0x0900, 0x093c},
+	{0x0948, 0x094c},
+	{0x095c, 0x0978},
+	{0x0a00, 0x0a3c},
+	{0x0a48, 0x0a4c},
+	{0x0a5c, 0x0a78},
+	{0x0b00, 0x0b3c},
+	{0x0b48, 0x0b4c},
+	{0x0b5c, 0x0b78},
+	{0x0c00, 0x0c3c},
+	{0x0c48, 0x0c4c},
+	{0x0c5c, 0x0c78},
+	{0x0d00, 0x0d3c},
+	{0x0d48, 0x0d4c},
+	{0x0d5c, 0x0d78},
+	{0x0e00, 0x0e3c},
+	{0x0e48, 0x0e4c},
+	{0x0e5c, 0x0e78},
+	{0x0f00, 0x0f3c},
+	{0x0f48, 0x0f4c},
+	{0x0f5c, 0x0f78},
+	{0x1000, 0x103c},
+	{0x1048, 0x104c},
+	{0x105c, 0x1078},
+	{0x1100, 0x113c},
+	{0x1148, 0x114c},
+	{0x115c, 0x1178},
+	{0x1204, 0x1208},
+	{0x1214, 0x121c},
+	{0x1304, 0x1308},
+	{0x1314, 0x131c},
+	{0x1404, 0x140c},
+	{0x1504, 0x150c},
+	{0x1808, 0x1810},
+	{0x1908, 0x1910},
+	{0x1a04, 0x1a0c},
+	{0x1b04, 0x1b0c},
+	{0x1c14, 0x1c1c},
+	{0x1d14, 0x1d1c},
+	{0x2000, 0x2008},
+	{0x3a14, 0x3a1c},
+	{0x3a24, 0x3a24},
+	{0x4000, 0x4014},
+	{0x4024, 0x4028},
+	{0x40d0, 0x40d0},
+	{0x4220, 0x4224},
+	{0x4294, 0x4294},
+	{0x429c, 0x42a0},
+	{0x42ec, 0x42fc},
+	{0x438c, 0x4390},
+	{0x4328, 0x4328},
+	{0x4400, 0x4414},
+	{0x4424, 0x4428},
+	{0x44d0, 0x44d0},
+	{0x4620, 0x4624},
+	{0x4694, 0x4694},
+	{0x469c, 0x46a0},
+	{0x46ec, 0x46fc},
+	{0x4728, 0x4728},
+	{0x478c, 0x4790},
+	{0x5884, 0x5888},
+	{0x5890, 0x589c},
+	{0x58a4, 0x58a4},
+	{0x58d0, 0x58e4},
+	{0x5880, 0x5880},
+	{0x5000, 0x50dc},
+};
 
 int fcn_fffa948c(void *ramdata)
 {
@@ -1670,8 +1767,8 @@ int fcn_fffa948c(void *ramdata)
 
 	void *ptr = ramdata + 0x14;
 	for (int i = 0; i < 0x5d; i++) {
-		uint32_t start = ref_fffcb80c[i * 2];
-		uint32_t end = ref_fffcb80c[i * 2 + 1];
+		uint32_t start = ref_fffcb80c[i].start;
+		uint32_t end = ref_fffcb80c[i].end;
 
 		while (start <= end) {
 			MCHBAR32(start) = *(uint32_t*)(ptr);
@@ -1712,8 +1809,8 @@ int fcn_fffab280(void *ramdata)
 
 	void *saved_reg = ramdata + 0x14;
 	for (int i = 0; i < 0x5d; i++) {
-		uint32_t start = ref_fffcb80c[i * 2];
-		uint32_t end = ref_fffcb80c[i * 2 + 1];
+		uint32_t start = ref_fffcb80c[i].start;
+		uint32_t end = ref_fffcb80c[i].end;
 		while (start <= end) {
 			*(uint32_t*)(saved_reg) = MCHBAR32(start);
 			start += 4;
@@ -1740,4 +1837,116 @@ int fcn_fffab280(void *ramdata)
 	*(uint32_t *)(ramdata + 4) = crc;
 
 	return 0;
+}
+
+int MRCABI
+fcn_fffb933f(void *ramdata,uint8_t idx,uint8_t param_3,uint8_t param_4,uint32_t param_5,
+		void *param_6,uint8_t param_7)
+
+{
+	int iVar1;
+	uint32_t uVar4;
+	int iVar7;
+	uint32_t uVar9;
+	int cnt;
+	void *ptr0;
+
+	cnt = 0;
+	ptr0 = (ramdata + idx * 0x1347 + 0x297c);
+	MCHBAR8(0x4c31) = 0;
+	uint8_t tmp8 = *(char *)(ptr0 + 0x120f) == '\x01';
+	if (*(char *)(ptr0 + 0x130a) == '\x01') {
+		tmp8 = tmp8 | 2;
+	}
+	iVar7 = idx * 0x400;
+	MCHBAR8(0x41bc + iVar7) = 0;
+	for (int i = 0; i < 4; i++) {
+		uVar9 = (1 << i);
+		if ((param_3 & *(uint8_t*)(ramdata + idx * 0x1347 + 0x3acb) & (uint8_t)uVar9) != 0) {
+			uint32_t uVar8 = i >> 1;
+			uint16_t uVar2 = *(uint16_t*)(param_6 + uVar8 * 2);
+			uVar4 = ((param_5 & 7) << 0x18) | (uint32_t)uVar2;
+			if (((i & 1) != 0) && (((uint32_t)tmp8 & (uVar8 + 1)) != 0)) {
+				uVar4 = (((param_5 & 2) >> 1) | (param_5 & 4) | ((param_5 & 1) * 2)) * 0x1000000 +
+					((uint32_t)((uVar2 & 0x150) >> 1) | ((uint32_t)uVar2 & 0xfe07) | (((uint32_t)uVar2 & 0xa8) * 2));
+			}
+#define CONCAT44(hi,lo) ((uint64_t)((((uint64_t)(hi)) << 32) | lo))
+			MCHBAR_WRITE64(ramdata,iVar7 + 0x41c0,
+					CONCAT44((((uint32_t)param_4 & 7) << 8) | 0xf000000 | (~uVar9 & 0xf),uVar4));
+			cnt = cnt + 1;
+		}
+	}
+
+	if (cnt == 0) {
+		return 1;
+	} else {
+		if (param_7 != '\0') {
+			uVar9 = param_7 & 7;
+		} else {
+			uVar9 = 3;
+		}
+		MCHBAR32(iVar7 + 0x419c) = uVar9 | (((cnt - 1) & 7) << 0x10);
+		iVar7 = idx * 8 + 0x48a8;
+		uVar9 = MCHBAR32(iVar7);
+		MCHBAR32(iVar7) = (uVar9 & 0xffffc7ff) | 0x2000;
+		iVar1 = idx * 4 + 0x48b8;
+		MCHBAR8(iVar1) = 5;
+
+		uint8_t bVar3;
+		do {
+			uint32_t reg32 = MCHBAR32(0x4804);
+			if (idx == '\0') {
+				if ((reg32 & 1) != 0) {
+					return 1;
+				}
+				bVar3 = ((reg32 >> 0x10) & 1) ^ 1;
+			} else {
+				if ((reg32 & 2) != 0)
+					return 1;
+				bVar3 = ((reg32 >> 0x11) ^ 1) & 1;
+			}
+		} while (bVar3 != 0);
+
+		MCHBAR8(iVar1) = 4;
+		MCHBAR32(iVar7) = uVar9;
+		return 0;
+	}
+}
+
+int MRCABI fcn_fffb8fda(void *ramdata, int idx, uint32_t param_3, uint8_t param_4,
+			    uint8_t param_5, uint32_t param_6, uint32_t param_7)
+{
+	int iVar4;
+	uint32_t t1;
+	uint32_t t2;
+
+	int iVar1 = idx * 0x400 + 0x4214;
+	t1 = mrc_get_timestamp();
+	do {
+		uint32_t uVar2 = MCHBAR32(iVar1);
+		if ((uVar2 & 0x80000000) == 0) {
+			iVar4 = idx * 0x400 + 0x4010;
+			uint32_t reg32;
+			if (param_7 != 0) {
+				reg32 = MCHBAR32(iVar4) | 0x80000000;
+				MCHBAR32(iVar4) = reg32;
+			}
+			MCHBAR32(iVar1) =
+				(uVar2 & 0xfff40000) | (((uint32_t)param_5 << 8) | param_4) | 0x40000
+				| ((param_6 & 1) << 0x13) | ((param_3 & 3) << 0x10) | 0x80000000;
+			t1 = mrc_get_timestamp();
+			do {
+				if ((MCHBAR32(iVar1) & 0x80000000) == 0) {
+					if (param_7 != 0) {
+						MCHBAR32(iVar4) = reg32 & 0x7fffffff;
+					}
+					return 0;
+				}
+				t2 = mrc_get_timestamp();
+			} while (t2 < t1 + 10000);
+			return 0x11;
+		}
+		t2 = mrc_get_timestamp();
+	} while (t2 < t1 + 10000);
+	return 0x11;
 }
