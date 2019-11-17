@@ -521,6 +521,7 @@ void fill_ram_param(pei_ram_param *param, struct pei_data *pd)
 	int freq = pd->max_ddr3_freq;
 	switch (freq) {
 		case 2133:
+		case 1866:
 		case 1600:
 		case 1333:
 		case 1067:
@@ -528,7 +529,7 @@ void fill_ram_param(pei_ram_param *param, struct pei_data *pd)
 			param->max_ddr3_freq = freq;
 			break;
 		default:
-			printk(BIOS_ERR, "System Agent: Unsupported DDR3 frequence %d (Supported are 800, 1067, 1333, 1600, 2133)", freq);
+			printk(BIOS_ERR, "System Agent: Unsupported DDR3 frequence %d (Supported are 800, 1067, 1333, 1600, 1866, 2133)", freq);
 			die("System halted.");
 	}
 }
