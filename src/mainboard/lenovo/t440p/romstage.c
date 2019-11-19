@@ -65,7 +65,7 @@ void mainboard_romstage_entry(void)
 		.gbe_enable = 1,
 		.dimm_channel0_disabled = 2,
 		.dimm_channel1_disabled = 2,
-		.max_ddr3_freq = 1600,
+		.max_ddr3_freq = 2133,
 		.usb2_ports = {
 			/* Length, Enable, OCn#, Location */
 			{ 0x0040, 1, 0, USB_PORT_BACK_PANEL }, /* USB3 */
