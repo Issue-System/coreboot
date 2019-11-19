@@ -31,7 +31,12 @@
 
 	Device (PS2M)		// Mouse
 	{
+		#ifndef PS2M_EISAID
 		Name(_HID, EISAID("PNP0F13"))
+		#else
+		Name(_HID, EISAID(PS2M_EISAID))
+		Name(_CID, EISAID("PNP0F13"))
+		#endif
 		Name(_CRS, ResourceTemplate()
 		{
 			IRQ (Edge, ActiveHigh, Exclusive) { 0x0c } // IRQ 12
