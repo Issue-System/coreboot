@@ -33,6 +33,32 @@ const u32 cim_verb_data[] = {
 	AZALIA_PIN_CFG(0x0, 0x1b, 0x411111f0),
 	AZALIA_PIN_CFG(0x0, 0x1d, 0x40738105),
 	AZALIA_PIN_CFG(0x0, 0x1e, 0x411111f0),
+
+        /* --- Next Codec --- */
+
+/*      Vendor Name    : Intel
+ *      Vendor ID      : 0x80862807
+ *      Subsystem ID   : 0x80860101
+ *      Revision ID    : 0x100000
+ */
+        /* coreboot specific header */
+        0x80862807,     // Codec Vendor / Device ID: Intel Haswell HDMI
+        0x80860101,     // Subsystem ID
+        0x00000004,     // Number of IDs
+
+        /* NID 0x01, HDA Codec Subsystem ID Verb Table: 0x80860101 */
+        AZALIA_SUBVENDOR(0x3, 0x80860101),
+
+        /* Pin Complex (NID 0x05) Digital Out at Int HDMI */
+        AZALIA_PIN_CFG(0x3, 0x05, 0x18560010),
+
+        /* Pin Complex (NID 0x06) Digital Out at Int HDMI */
+        AZALIA_PIN_CFG(0x3, 0x06, 0x18560010),
+
+        /* Pin Complex (NID 0x07) Digital Out at Int HDMI */
+        AZALIA_PIN_CFG(0x3, 0x07, 0x18560010)
+
+
 };
 
 const u32 pc_beep_verbs[0] = {};
