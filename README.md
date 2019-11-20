@@ -6,6 +6,7 @@ This is a forked version of coreboot containing specific modifications for the L
 New features:
 * Memory support up to 2133 MT/s
 * Better support for the Touchpad
+* Audio support over mDP / HDMI
 
 coreboot is a Free Software project aimed at replacing the proprietary BIOS
 (firmware) found in most computers.  coreboot performs a little bit of
