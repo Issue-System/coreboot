@@ -23,7 +23,6 @@ required.
 
 coreboot was formerly known as LinuxBIOS.
 
-
 Payloads
 --------
 
@@ -58,6 +57,7 @@ Build Requirements
  * iasl (for targets with ACPI support)
  * pkg-config
  * libssl-dev (openssl)
+ * nasm
 
 Optional:
 
@@ -69,8 +69,42 @@ Optional:
 
 Building coreboot
 -----------------
+```
+git clone https://github.com/archfan/coreboot -b 4.11-t440
+make nconfig
+```
 
-Please consult <https://www.coreboot.org/Build_HOWTO> for details.
+* Mainboard 
+
+Mainboard vendor -> Lenovo
+
+Mainboard model -> Thinkpad T440p
+
+* Chipset
+
+Make sure to add the blobs for
+
+* Intel descriptor.bin
+* Intel ME/TXE firmware
+* gigabit ethernet configuration
+
+etc.
+
+```
+make crossgcc-i386 CPUS=4
+make
+```
+You will find the coreboot.rom under the build/ directory. 
+
+The upgrading process is simple if you have installed coreboot before:
+
+
+Add ```iomem=relaxed``` to ```/etc/default/grub```
+```
+grub-mkconfig -o /boot/grub/grub.cfg
+sudo reboot
+flashrom -p internal:laptop=force_I_want_a_brick -w coreboot.rom
+```
 
 
 Testing coreboot Without Modifying Your Hardware
