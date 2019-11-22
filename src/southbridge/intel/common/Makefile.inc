@@ -18,6 +18,8 @@ subdirs-y += firmware
 
 all-$(CONFIG_SOUTHBRIDGE_INTEL_COMMON_RESET) += reset.c
 
+ramstage-$(CONFIG_SOUTHBRIDGE_INTEL_COMMON_AHCI) += ahci.c
+
 romstage-$(CONFIG_SOUTHBRIDGE_INTEL_COMMON_SMBUS) += smbus.c
 ramstage-$(CONFIG_SOUTHBRIDGE_INTEL_COMMON_SMBUS) += smbus.c
 
