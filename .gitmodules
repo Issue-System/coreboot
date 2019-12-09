@@ -1,40 +1,36 @@
 [submodule "3rdparty/amd_blobs"]
-        active = true
-        url = https://review.coreboot.org/amd_blobs
-        update = none
-[submodule "arm-trusted-firmware"]
-        active = true
-        url = https://review.coreboot.org/arm-trusted-firmware.git
-[submodule "3rdparty/blobs"]
-        active = true
-        url = https://review.coreboot.org/blobs.git
-        update = none
-[submodule "3rdparty/chromeec"]
-        active = true
-        url = https://review.coreboot.org/chrome-ec.git
-[submodule "3rdparty/ffs"]
-        active = true
-        url = https://review.coreboot.org/ffs.git
-[submodule "3rdparty/fsp"]
-        active = true
-        url = https://review.coreboot.org/fsp.git
-        update = none
-[submodule "intel-microcode"]
-        active = true
-        url = https://review.coreboot.org/intel-microcode.git
-        update = none
-[submodule "libgfxinit"]
-        active = true
-        url = https://review.coreboot.org/libgfxinit.git
-[submodule "libhwbase"]
-        active = true
-        url = https://review.coreboot.org/libhwbase.git
-[submodule "opensbi"]
-        active = true
-        url = https://review.coreboot.org/opensbi.git
-[submodule "vboot"]
-        active = true
-        url = https://review.coreboot.org/vboot.git
+	path = 3rdparty/amd_blobs
+	url = https://review.coreboot.org/amd_blobs
 [submodule "util/nvidia-cbootimage"]
-        active = true
-        url = https://review.coreboot.org/nvidia-cbootimage.git
+	path = util/nvidia-cbootimage
+	url = https://review.coreboot.org/nvidia-cbootimage.git
+[submodule "3rdparty/vboot"]
+	path = 3rdparty/vboot
+	url = https://review.coreboot.org/vboot.git
+[submodule "3rdparty/arm_trusted_firmware"]
+	path = 3rdparty/arm_trusted_firmware
+	url = https://review.coreboot.org/arm-trusted-firmware.git
+[submodule "3rdparty/chromeec"]
+	path = 3rdparty/chromeec
+	url = https://review.coreboot.org/chrome-ec.git
+[submodule "3rdparty/libhwbase"]
+	path = 3rdparty/libhwbase
+	url = https://review.coreboot.org/libhwbase.git
+[submodule "3rdparty/libgfxinit"]
+	path = 3rdparty/libgfxinit
+	url = https://review.coreboot.org/libgfxinit.git
+[submodule "3rdparty/fsp"]
+	path = 3rdparty/fsp
+	url = https://review.coreboot.org/fsp.git
+[submodule "3rdparty/opensbi"]
+	path = 3rdparty/opensbi
+	url = https://review.coreboot.org/opensbi.git
+[submodule "3rdparty/intel-microcode"]
+	path = 3rdparty/intel-microcode
+	url = https://review.coreboot.org/intel-microcode.git
+[submodule "3rdparty/ffs"]
+	path = 3rdparty/ffs
+	url = https://review.coreboot.org/ffs.git
+[submodule "3rdparty/blobs"]
+	path = 3rdparty/blobs
+	url = https://review.coreboot.org/blobs.git
