@@ -18,6 +18,11 @@
 /* I/O APIC id 0x3 */
 Device(PBIO)
 {
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
+
 	Name (_HID, "ACPI000A")
 	Name (_ADR, 0x001c0000)
 }
@@ -59,6 +64,10 @@ Device(P64B)
 /* I/O APIC id 0x4 */
 Device(PAIO)
 {
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "ACPI000A")
 	Name (_ADR, 0x001e0000)
 }

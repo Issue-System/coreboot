@@ -18,6 +18,10 @@
 /* Grunt specific I2S machine driver */
 Device (I2S)
 {
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_ADR, 1)
 	Name (_HID, "AMD7219")
 	Name (_CID, "AMD7219")

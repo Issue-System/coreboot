@@ -114,6 +114,11 @@ Scope (\_SB.PCI0.I2C5)
 	/* Realtek Audio Codec */
 	Device (RTEK)   /* Audio Codec driver I2C */
 	{
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 		Name (_ADR, 0)
 		Name (_HID, AUDIO_CODEC_HID)
 		Name (_CID, AUDIO_CODEC_CID)

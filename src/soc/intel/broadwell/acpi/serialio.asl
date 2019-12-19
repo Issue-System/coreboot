@@ -157,6 +157,11 @@ Device (SIOR)
 Device (SDMA)
 {
 	// Serial IO DMA Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INTL9C60")
 	Name (_UID, 1)
 	Name (_ADR, 0x00150000)
@@ -194,6 +199,11 @@ Device (SDMA)
 Device (I2C0)
 {
 	// Serial IO I2C0 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Method (_HID)
 	{
 		If (\ISWP ()) {
@@ -265,6 +275,11 @@ Device (I2C0)
 Device (I2C1)
 {
 	// Serial IO I2C1 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Method (_HID)
 	{
 		If (\ISWP ()) {
@@ -336,6 +351,11 @@ Device (I2C1)
 Device (SPI0)
 {
 	// Serial IO SPI0 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Method (_HID)
 	{
 		If (\ISWP ()) {
@@ -392,6 +412,11 @@ Device (SPI0)
 Device (SPI1)
 {
 	// Serial IO SPI1 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Method (_HID)
 	{
 		If (\ISWP ()) {
@@ -460,6 +485,11 @@ Device (SPI1)
 Device (UAR0)
 {
 	// Serial IO UART0 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Method (_HID)
 	{
 		If (\ISWP ()) {
@@ -528,6 +558,11 @@ Device (UAR0)
 Device (UAR1)
 {
 	// Serial IO UART1 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Method (_HID)
 	{
 		If (\ISWP ()) {
@@ -584,6 +619,11 @@ Device (UAR1)
 Device (SDIO)
 {
 	// Serial IO SDIO Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Method (_HID)
 	{
 		If (\ISWP ()) {

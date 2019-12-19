@@ -123,6 +123,11 @@ Device (SIOR)
 Device (SDMA)
 {
 	// Serial IO DMA Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INTL9C60")
 	Name (_UID, 1)
 	Name (_ADR, 0x00150000)
@@ -160,6 +165,11 @@ Device (SDMA)
 Device (I2C0)
 {
 	// Serial IO I2C0 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INT33C2")
 	Name (_CID, "INT33C2")
 	Name (_UID, 1)
@@ -242,6 +252,11 @@ Device (I2C0)
 Device (I2C1)
 {
 	// Serial IO I2C1 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INT33C3")
 	Name (_CID, "INT33C3")
 	Name (_UID, 1)
@@ -324,6 +339,11 @@ Device (I2C1)
 Device (SPI0)
 {
 	// Serial IO SPI0 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INT33C0")
 	Name (_CID, "INT33C0")
 	Name (_UID, 1)
@@ -362,6 +382,11 @@ Device (SPI0)
 Device (SPI1)
 {
 	// Serial IO SPI1 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INT33C1")
 	Name (_CID, "INT33C1")
 	Name (_UID, 1)
@@ -413,6 +438,11 @@ Device (SPI1)
 Device (UAR0)
 {
 	// Serial IO UART0 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INT33C4")
 	Name (_CID, "INT33C4")
 	Name (_UID, 1)
@@ -464,6 +494,11 @@ Device (UAR0)
 Device (UAR1)
 {
 	// Serial IO UART1 Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INT33C5")
 	Name (_CID, "INT33C5")
 	Name (_UID, 1)
@@ -502,6 +537,11 @@ Device (UAR1)
 Device (SDIO)
 {
 	// Serial IO SDIO Controller
+
+	/*
+	 * FIXME: Per ACPI spec, device object must contain either an
+	 * _HID object or an _ADR object, but should not contain both.
+	 */
 	Name (_HID, "INT33C6")
 	Name (_CID, "PNP0D40")
 	Name (_UID, 1)
