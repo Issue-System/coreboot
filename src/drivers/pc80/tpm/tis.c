@@ -21,7 +21,7 @@
  * Infineon slb9635), so this driver provides access to locality 0 only.
  */
 
-#include <stdlib.h>
+#include <commonlib/helpers.h>
 #include <string.h>
 #include <delay.h>
 #include <device/mmio.h>
@@ -31,7 +31,6 @@
 #include <device/device.h>
 #include <console/console.h>
 #include <security/tpm/tis.h>
-#include <arch/early_variables.h>
 #include <device/pnp.h>
 #include "chip.h"
 
@@ -162,7 +161,7 @@ static const struct vendor_name vendor_names[] = {
  * Cached vendor/device ID pair to indicate that the device has been already
  * discovered
  */
-static u32 vendor_dev_id CAR_GLOBAL;
+static u32 vendor_dev_id;
 
 static inline u8 tpm_read_status(int locality)
 {
@@ -402,7 +401,7 @@ static u32 tis_probe(void)
 	u16 vid, did;
 	int i;
 
-	if (car_get_var(vendor_dev_id))
+	if (vendor_dev_id)
 		return 0;  /* Already probed. */
 
 	didvid = tpm_read_did_vid(0);
@@ -411,7 +410,7 @@ static u32 tis_probe(void)
 		return TPM_DRIVER_ERR;
 	}
 
-	car_set_var(vendor_dev_id, didvid);
+	vendor_dev_id = didvid;
 
 	vid = didvid & 0xffff;
 	did = (didvid >> 16) & 0xffff;
@@ -489,7 +488,7 @@ static u32 tis_senddata(const u8 *const data, u32 len)
 		 * changes to zero exactly after the last byte is fed into the
 		 * FIFO.
 		 */
-		count = min(burst, len - offset - 1);
+		count = MIN(burst, len - offset - 1);
 		while (count--)
 			tpm_write_data(data[offset++], locality);
 

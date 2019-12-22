@@ -24,8 +24,6 @@
 #include <superio/ite/common/ite.h>
 #include <superio/ite/it8623e/it8623e.h>
 
-#define ITE_CONFIG_REG_CC	0x02
-
 #if CONFIG_UART_FOR_CONSOLE == 0
 #define SERIAL_DEV		PNP_DEV(0x2e, IT8623E_SP1)
 #elif CONFIG_UART_FOR_CONSOLE == 1
@@ -143,8 +141,6 @@ void board_BeforeAgesa(struct sysinfo *cb)
 	/* Set LPC decode enables. */
 	pci_devfn_t dev2 = PCI_DEV(0, 0x14, 3);
 	pci_write_config32(dev2, 0x44, 0xff03ffd5);
-
-	hudson_lpc_port80();
 
 	/* Enable the AcpiMmio space */
 	outb(0x24, 0xcd6);

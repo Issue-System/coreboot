@@ -11,7 +11,6 @@
  * GNU General Public License for more details.
  */
 
-#include <arch/early_variables.h>
 #include <cpu/x86/msr.h>
 #include <cpu/x86/tsc.h>
 #include <cpu/intel/speedstep.h>
@@ -20,8 +19,8 @@
 #include <commonlib/helpers.h>
 #include <delay.h>
 
-static u32 g_timer_fsb CAR_GLOBAL;
-static u32 g_timer_tsc CAR_GLOBAL;
+static u32 timer_fsb;
+static u32 timer_tsc;
 
 /* This is not an architectural MSR. */
 #define MSR_PLATFORM_INFO 0xce
@@ -99,8 +98,8 @@ static void resolve_timebase(void)
 	ret = get_fsb_tsc(&fsb, &ratio);
 	if (ret == 0) {
 		u32 tsc = 100 * DIV_ROUND_CLOSEST(ratio * fsb, 100);
-		car_set_var(g_timer_fsb, fsb);
-		car_set_var(g_timer_tsc, tsc);
+		timer_fsb = fsb;
+		timer_tsc = tsc;
 		return;
 	}
 
@@ -110,33 +109,27 @@ static void resolve_timebase(void)
 		printk(BIOS_ERR, "CPU not supported\n");
 
 	/* Set some semi-ridiculous defaults. */
-	car_set_var(g_timer_fsb, 500);
-	car_set_var(g_timer_tsc, 5000);
+	timer_fsb = 500;
+	timer_tsc = 5000;
 	return;
 }
 
 u32 get_timer_fsb(void)
 {
-	u32 fsb;
-
-	fsb = car_get_var(g_timer_fsb);
-	if (fsb > 0)
-		return fsb;
+	if (timer_fsb > 0)
+		return timer_fsb;
 
 	resolve_timebase();
-	return car_get_var(g_timer_fsb);
+	return timer_fsb;
 }
 
 unsigned long tsc_freq_mhz(void)
 {
-	u32 tsc;
-
-	tsc = car_get_var(g_timer_tsc);
-	if (tsc > 0)
-		return tsc;
+	if (timer_tsc > 0)
+		return timer_tsc;
 
 	resolve_timebase();
-	return car_get_var(g_timer_tsc);
+	return timer_tsc;
 }
 
 /**

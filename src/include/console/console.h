@@ -26,8 +26,6 @@
 #define RAM_DEBUG (CONFIG(DEBUG_RAM_SETUP) ? BIOS_DEBUG : BIOS_NEVER)
 #define RAM_SPEW  (CONFIG(DEBUG_RAM_SETUP) ? BIOS_SPEW  : BIOS_NEVER)
 
-#ifndef __ROMCC__
-
 #include <console/vtxprintf.h>
 
 void post_code(u8 value);
@@ -101,12 +99,5 @@ int do_printk(int msg_level, const char *fmt, ...)
 int mrc_printk(const char *fmt, ...);
 
 int do_vprintk(int msg_level, const char *fmt, va_list args);
-
-#else
-
-static inline void romcc_printk(void) { }
-#define printk(...) romcc_printk()
-
-#endif /* !__ROMCC__ */
 
 #endif /* CONSOLE_CONSOLE_H_ */

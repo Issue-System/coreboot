@@ -19,16 +19,14 @@
 #include <arch/cpu.h>
 #include <cpu/x86/lapic.h>
 #include <console/console.h>
-#include <cpu/amd/car.h>
 #include <northbridge/amd/agesa/state_machine.h>
-#include <cpu/x86/bist.h>
 #include <southbridge/amd/pi/hudson/hudson.h>
 #include <superio/fintek/common/fintek.h>
 #include <superio/fintek/f81866d/f81866d.h>
 
 #define SERIAL_DEV1 PNP_DEV(0x4e, F81866D_SP1)
 
-void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
+static void romstage_main_template(void)
 {
 	u32 val;
 
@@ -43,43 +41,17 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	outb(0xD2, 0xcd6);
 	outb(0x00, 0xcd7);
 
-	hudson_lpc_port80();
-
 	if (!cpu_init_detectedx && boot_cpu()) {
 		post_code(0x30);
 		fintek_enable_serial(SERIAL_DEV1, CONFIG_TTYS0_BASE);
 		post_code(0x31);
 		console_init();
 	}
-
-	/* Halt if there was a built in self test failure */
-	post_code(0x34);
-	report_bist_failure(bist);
-
-	/* Load MPB */
-	val = cpuid_eax(1);
-	printk(BIOS_DEBUG, "BSP Family_Model: %08x\n", val);
-	printk(BIOS_DEBUG, "cpu_init_detectedx = %08lx\n", cpu_init_detectedx);
-
-	post_code(0x37);
-	AGESAWRAPPER(amdinitreset);
-
-	post_code(0x38);
-	printk(BIOS_DEBUG, "Got past avalon_early_setup\n");
-
-	post_code(0x39);
-	AGESAWRAPPER(amdinitearly);
-
-	post_code(0x40);
-	AGESAWRAPPER(amdinitpost);
 }
 
 void agesa_postcar(struct sysinfo *cb)
 {
-	//PspMboxBiosCmdDramInfo();
-	post_code(0x41);
-	AGESAWRAPPER(amdinitenv);
-
+	/* After AMD_INIT_ENV -> move to ramstage ? */
 	outb(0xEA, 0xCD6);
 	outb(0x1, 0xcd7);
 }

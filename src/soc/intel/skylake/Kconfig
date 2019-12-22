@@ -33,6 +33,7 @@ config CPU_SPECIFIC_OPTIONS
 	select FSP_M_XIP
 	select GENERIC_GPIO_LIB
 	select HAVE_FSP_GOP
+	select HAVE_FSP_LOGO_SUPPORT
 	select INTEL_DESCRIPTOR_MODE_CAPABLE
 	select HAVE_SMI_HANDLER
 	select INTEL_CAR_NEM_ENHANCED
@@ -43,7 +44,6 @@ config CPU_SPECIFIC_OPTIONS
 	select NO_FIXED_XIP_ROM_SIZE
 	select PARALLEL_MP
 	select PARALLEL_MP_AP_WORK
-	select PCIEX_LENGTH_64MB
 	select PLATFORM_USES_FSP2_0
 	select REG_SCRIPT
 	select SA_ENABLE_DPR
@@ -287,5 +287,29 @@ config IFD_CHIPSET
 config INTEL_TXT_BIOSACM_ALIGNMENT
 	hex
 	default 0x40000 # 256KB
+
+config MAINBOARD_SUPPORTS_SKYLAKE_CPU
+	bool "Board can contain Skylake CPU"
+	default y
+
+if SKYLAKE_SOC_PCH_H
+
+config MAINBOARD_SUPPORTS_KABYLAKE_CPU
+	bool "Board can contain Kaby Lake CPU"
+	default y if SOC_INTEL_KABYLAKE
+
+endif
+
+if !SKYLAKE_SOC_PCH_H
+
+config MAINBOARD_SUPPORTS_KABYLAKE_DUAL
+	bool "Board can contain Kaby Lake DUAL core"
+	default y
+
+config MAINBOARD_SUPPORTS_KABYLAKE_QUAD
+	bool "Board can contain Kaby Lake QUAD core"
+	default y
+
+endif
 
 endif

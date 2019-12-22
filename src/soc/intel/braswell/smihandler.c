@@ -29,7 +29,6 @@
 #include <soc/pm.h>
 #include <spi-generic.h>
 #include <stdint.h>
-#include <stdlib.h>
 #include <soc/gpio.h>
 
 /* GNVS needs to be set by coreboot initiating a software SMI. */
@@ -280,22 +279,6 @@ static void southbridge_smi_gsmi(void)
 	*ret = gsmi_exec(sub_command, param);
 }
 
-static void finalize(void)
-{
-	static int finalize_done;
-
-	if (finalize_done) {
-		printk(BIOS_DEBUG, "SMM already finalized.\n");
-		return;
-	}
-	finalize_done = 1;
-
-#if CONFIG(SPI_FLASH_SMM)
-	/* Re-init SPI driver to handle locked BAR */
-	spi_init();
-#endif
-}
-
 static void southbridge_smi_apmc(void)
 {
 	uint8_t reg8;
@@ -346,9 +329,6 @@ static void southbridge_smi_apmc(void)
 	case APM_CNT_ELOG_GSMI:
 		if (CONFIG(ELOG_GSMI))
 			southbridge_smi_gsmi();
-		break;
-	case APM_CNT_FINALIZE:
-		finalize();
 		break;
 	}
 

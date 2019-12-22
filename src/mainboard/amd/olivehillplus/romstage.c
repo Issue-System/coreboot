@@ -19,12 +19,10 @@
 #include <arch/cpu.h>
 #include <cpu/x86/lapic.h>
 #include <console/console.h>
-#include <cpu/amd/car.h>
 #include <northbridge/amd/agesa/state_machine.h>
-#include <cpu/x86/bist.h>
 #include <southbridge/amd/pi/hudson/hudson.h>
 
-void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
+static void romstage_main_template(void)
 {
 	u32 val;
 
@@ -39,18 +37,12 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	outb(0xD2, 0xcd6);
 	outb(0x00, 0xcd7);
 
-	hudson_lpc_port80();
-
 	if (!cpu_init_detectedx && boot_cpu()) {
 		post_code(0x30);
 
 		post_code(0x31);
 		console_init();
 	}
-
-	/* Halt if there was a built in self test failure */
-	post_code(0x34);
-	report_bist_failure(bist);
 
 	/* Load MPB */
 	val = cpuid_eax(1);
@@ -67,26 +59,11 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 		for (i = 0; i < 200000; i++)
 			inb(0xCD6);
 	}
-
-	post_code(0x37);
-	AGESAWRAPPER(amdinitreset);
-
-	post_code(0x38);
-	printk(BIOS_DEBUG, "Got past avalon_early_setup\n");
-
-	post_code(0x39);
-	AGESAWRAPPER(amdinitearly);
-
-	post_code(0x40);
-	AGESAWRAPPER(amdinitpost);
 }
 
 void agesa_postcar(struct sysinfo *cb)
 {
-	//PspMboxBiosCmdDramInfo();
-	post_code(0x41);
-	AGESAWRAPPER(amdinitenv);
-
+	/* After AMD_INIT_ENV -> move to ramstage ? */
 	outb(0xEA, 0xCD6);
 	outb(0x1, 0xcd7);
 }

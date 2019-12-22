@@ -17,34 +17,20 @@
 #define __VBOOT_MISC_H__
 
 #include <assert.h>
-#include <arch/early_variables.h>
 #include <security/vboot/vboot_common.h>
 
 struct vb2_context;
 struct vb2_shared_data;
 
 /*
- * Stores vboot-related information.  selected_region is used by verstage to
- * store the location of the selected slot.  buffer is used by vboot to store
- * its work buffer.  vb2_context is contained within this work buffer, and is
- * accessible via vboot_get_context() declared below.
- * Keep the struct CPU architecture agnostic as it crosses stage boundaries.
- */
-struct vboot_working_data {
-	/* offset of the buffer from the start of this struct */
-	uint16_t buffer_offset;
-};
-
-/*
  * Source: security/vboot/common.c
  */
-struct vboot_working_data *vboot_get_working_data(void);
 struct vb2_context *vboot_get_context(void);
 
 /*
  * Returns 1 if firmware slot A is used, 0 if slot B is used.
  */
-static inline int vboot_is_firmware_slot_a(const struct vb2_context *ctx)
+static inline int vboot_is_firmware_slot_a(struct vb2_context *ctx)
 {
 	return !(ctx->flags & VB2_CONTEXT_FW_SLOT_B);
 }
@@ -63,13 +49,7 @@ static inline bool vboot_is_gbb_flag_set(enum vb2_gbb_flag flag)
 /*
  * Locates firmware as a region device. Returns 0 on success, -1 on failure.
  */
-int vboot_locate_firmware(const struct vb2_context *ctx,
-			  struct region_device *fw);
-
-/*
- * Source: security/vboot/vboot_handoff.c
- */
-void vboot_fill_handoff(void);
+int vboot_locate_firmware(struct vb2_context *ctx, struct region_device *fw);
 
 /*
  * Source: security/vboot/bootmode.c
@@ -112,7 +92,7 @@ static inline int vboot_logic_executed(void)
 	   need to check a global to see if verfication has run. */
 	if (verification_should_run() ||
 	    (verstage_should_load() && CONFIG(VBOOT_RETURN_FROM_VERSTAGE)))
-		return car_get_var(vboot_executed);
+		return vboot_executed;
 
 	if (CONFIG(VBOOT_STARTS_IN_BOOTBLOCK)) {
 		/* All other stages are "after the bootblock" */

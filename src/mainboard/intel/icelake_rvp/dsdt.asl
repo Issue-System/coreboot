@@ -14,8 +14,8 @@
  */
 
 #include <arch/acpi.h>
-#include "variant/ec.h"
-#include "variant/gpio.h"
+#include <baseboard/ec.h>
+#include <baseboard/gpio.h>
 
 DefinitionBlock(
 	"dsdt.aml",
@@ -26,7 +26,6 @@ DefinitionBlock(
 	0x20110725	// OEM revision
 )
 {
-	// Some generic macros
 	#include <soc/intel/icelake/acpi/platform.asl>
 
 	// global NVS and variables

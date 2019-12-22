@@ -22,91 +22,65 @@
  */
 
 #include "gcccar.inc"
-#include <cpu/x86/cache.h>
+#include <cpu/x86/lapic_def.h>
 #include <cpu/x86/post_code.h>
 
 .code32
 .globl _cache_as_ram_setup, _cache_as_ram_setup_end
+.global bootblock_pre_c_entry
 
 _cache_as_ram_setup:
 
-	/* Preserve BIST. */
-	movd	%eax, %mm0
+/*
+ * on entry:
+ *   mm0: BIST (ignored)
+ *   mm2_mm1: timestamp at bootblock_protected_mode_entry
+ */
+bootblock_pre_c_entry:
 
 	post_code(0xa0)
 
-	/* enable SSE2 128bit instructions */
-	/* Turn on OSFXSR [BIT9] and OSXMMEXCPT [BIT10] onto CR4 register */
-
-	movl	%cr4, %eax
-	orl	$(3 << 9), %eax
-	movl	%eax, %cr4
-
-	post_code(0xa1)
-
 	AMD_ENABLE_STACK
 
-	/* Align the stack. */
-	and	$0xFFFFFFF0, %esp
-
-#ifdef __x86_64__
-	/* switch to 64 bit long mode */
-	mov	%esi, %ecx
-	add	$0, %ecx # core number
-	xor	%eax, %eax
-	lea	(0x1000+0x23)(%ecx), %edi
-	mov	%edi, (%ecx)
-	mov	%eax, 4(%ecx)
-
-	lea	0x1000(%ecx), %edi
-	movl	$0x000000e3, 0x00(%edi)
-	movl	%eax, 0x04(%edi)
-	movl	$0x400000e3, 0x08(%edi)
-	movl	%eax, 0x0c(%edi)
-	movl	$0x800000e3, 0x10(%edi)
-	movl	%eax, 0x14(%edi)
-	movl	$0xc00000e3, 0x18(%edi)
-	movl	%eax, 0x1c(%edi)
-
-	# load ROM based identity mapped page tables
-	mov	%ecx, %eax
-	mov	%eax, %cr3
-
-	# enable PAE
-	mov	%cr4, %eax
-	bts	$5, %eax
-	mov	%eax, %cr4
-
-	# enable long mode
-	mov	$0xC0000080, %ecx
+	/*
+	 * Set up bootblock stack on BSP.
+	 * AMD_ENABLE_STACK macro sets up a stack for BSP at BSP_STACK_BASE_ADDR
+	 * which is 0x30000 (_car_region_end), but for C bootblock the stack
+	 * begins at _ecar_stack (see arch/x86/car.ld)
+	 */
+	mov	$LAPIC_BASE_MSR, %ecx
 	rdmsr
-	bts	$8, %eax
-	wrmsr
+	test	$LAPIC_BASE_MSR_BOOTSTRAP_PROCESSOR, %eax
+	jz	ap_entry
 
-	# enable paging
-	mov	%cr0, %eax
-	bts	$31, %eax
-	mov	%eax, %cr0
+	mov	$_ecar_stack, %esp
 
-	# use call far to switch to 64-bit code segment
-	ljmp	$0x18, $1f
-1:
+	/* Align the stack and keep aligned for call to bootblock_c_entry() */
+	and	$0xfffffff0, %esp
+	sub	$8, %esp
 
-#endif
+	movd	%mm2, %eax
+	pushl	%eax		/* tsc[63:32] */
+	movd	%mm1, %eax
+	pushl	%eax		/* tsc[31:0] */
 
-	/* Must maintain 16-byte stack alignment here. */
-	pushl	$0x0
-	pushl	$0x0
-	pushl	$0x0
-	movd	%mm0, %eax		/* bist */
-	pushl	%eax
-	call	romstage_main
+	post_code(0xa2)
 
-	/* Should never see this postcode */
-	post_code(0xae)
+	call	bootblock_c_entry
+
+	/* Never reached. */
 
 stop:
+	post_code(POST_DEAD_CODE)
 	hlt
+	jmp	stop
+
+ap_entry:
+	/* Align the stack for call to ap_bootblock_c_entry() */
+	and	$0xfffffff0, %esp
+	call	ap_bootblock_c_entry
+
+	/* Never reached. */
 	jmp	stop
 
 _cache_as_ram_setup_end:
