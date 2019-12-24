@@ -369,7 +369,7 @@ static void gma_setup_panel(struct device *dev)
 
 		gtt_write(BLC_PWM_CPU_CTL2,
 			(conf->gpu_cpu_backlight_polarity == GPU_BACKLIGHT_POLARITY_LOW) << 29 |
-			BLM_PWM2_ENABLE);
+			BLC_PWM2_ENABLE);
 	}
 
 	/* Get display,pipeline,and DDI registers into a basic sane state */
