@@ -9,6 +9,7 @@ defconfig
 .coreboot-version
 .xcompile
 .ccwrap
+blobs/
 build/
 coreboot-builds/
 payloads/coreinfo/lpbuild/
