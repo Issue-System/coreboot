@@ -68,6 +68,10 @@ chip soc/intel/cannonlake
 	# [6:0] Rx Strobe Delay DLL 2(HS400 Mode), each 125ps, range: 0 - 39.
 	register "common_soc_config.emmc_dll.emmc_rx_strobe_cntl" = "0x1515"
 
+	# Intel HDA - disable I2S Audio SSP1 and DMIC0 as puff variant does not have them.
+	register "PchHdaAudioLinkSsp1" = "0"
+	register "PchHdaAudioLinkDmic0" = "0"
+
 	# Intel Common SoC Config
 	#+-------------------+---------------------------+
 	#| Field             |  Value                    |
@@ -175,7 +179,8 @@ chip soc/intel/cannonlake
 			end
 		end #I2C #4
 		device pci 1a.0 on  end # eMMC
-		device pci 1c.6 on  end # PCI Express Port 7, RTL8111H Ethernet NIC.
+		device pci 1c.0 on  end # FSP requires func0 be enabled.
+		device pci 1c.6 on  end # RTL8111H Ethernet NIC (becomes RP1).
 		device pci 1e.3 off end # GSPI #1
 	end
 
