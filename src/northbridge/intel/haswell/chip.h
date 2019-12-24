@@ -37,11 +37,9 @@ struct northbridge_intel_haswell_config {
 	u16 gpu_panel_power_backlight_on_delay;  /* T5 time sequence */
 	u16 gpu_panel_power_backlight_off_delay; /* Tx time sequence */
 
-	unsigned int gpu_pch_backlight_pwm_hz;
-	enum {
-		GPU_BACKLIGHT_POLARITY_HIGH = 0,
-		GPU_BACKLIGHT_POLARITY_LOW,
-	} gpu_pch_backlight_polarity;
+	u32 gpu_cpu_backlight;	/* CPU Backlight PWM value */
+	u32 gpu_pch_backlight;	/* PCH Backlight PWM value */
+
 	bool gpu_ddi_e_connected;
 
 	struct i915_gpu_controller_info gfx;
