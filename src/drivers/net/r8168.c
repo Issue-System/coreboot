@@ -112,17 +112,21 @@ static enum cb_err fetch_mac_string_vpd(u8 *macstrbuf, const u8 device_index)
 		/* Translate index number from integer to ascii */
 		key[DEVICE_INDEX_BYTE] = (device_index - 1) + '0';
 
-	if (fmap_locate_area_as_rdev("RO_VPD", &rdev)) {
-		printk(BIOS_ERR, "Error: Couldn't find RO_VPD region.");
-		return CB_ERR;
+	if (fmap_locate_area_as_rdev("RO_VPD", &rdev) == CB_SUCCESS)  {
+		search_address = rdev_mmap_full(&rdev);
+		search_length = region_device_sz(&rdev);
+	} else {
+        printk(BIOS_WARNING, "Warning: Couldn't find RO_VPD region.");
+		search_address = cbfs_boot_map_with_leak("vpd.bin",
+							CBFS_TYPE_RAW,
+							&search_length);
 	}
-	search_address = rdev_mmap_full(&rdev);
+
 	if (search_address == NULL) {
 		printk(BIOS_ERR, "LAN: VPD not found.\n");
 		return CB_ERR;
 	}
 
-	search_length = region_device_sz(&rdev);
 	offset = search(key, search_address, strlen(key),
 			search_length);
 
@@ -315,6 +319,7 @@ static void r8168_net_fill_ssdt(struct device *dev)
 	acpigen_write_name_integer("_UID", 0);
 	if (dev->chip_ops)
 		acpigen_write_name_string("_DDN", dev->chip_ops->name);
+	acpigen_write_STA(ACPI_STATUS_DEVICE_HIDDEN_ON);
 
 	/* Address */
 	address = PCI_SLOT(dev->path.pci.devfn) & 0xffff;
