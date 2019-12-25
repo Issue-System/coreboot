@@ -21,4 +21,9 @@ make
 cp ./build/coreboot.rom ./${filename}
 cbfstool ${filename} print
 sha1sum ${filename} > ${filename}.sha1
+
+if [ ! -d "~/dev/firmware" ]; then
+	mkdir -p ~/dev/firmware
+fi
+
 mv ${filename}* ~/dev/firmware/
