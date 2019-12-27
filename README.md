@@ -14,9 +14,6 @@ UEFI. This allows for systems to only include the features necessary
 in the target application, reducing the amount of code and flash space
 required.
 
-coreboot was formerly known as LinuxBIOS.
-
-
 Payloads
 --------
 
@@ -29,11 +26,10 @@ See <https://www.coreboot.org/Payloads> for a list of supported payloads.
 Supported Hardware
 ------------------
 
-coreboot supports a wide range of chipsets, devices, and mainboards.
+Coreboot supports a wide range of chipsets, devices, and mainboards. However this fork is mainly intended for the Lenovo Thinkpad T440P and T540P. 
 
-For details please consult:
-
- * <https://www.coreboot.org/Supported_Motherboards>
+See <https://github.com/MrChromebox/coreboot> for Chromebook devices
+See <https://github.com/coreboot/coreboot> for any other device
 
 
 Build Requirements
@@ -64,16 +60,6 @@ Building coreboot
 -----------------
 
 Please consult <https://www.coreboot.org/Build_HOWTO> for details.
-
-
-Testing coreboot Without Modifying Your Hardware
-------------------------------------------------
-
-If you want to test coreboot without any risks before you really decide
-to use it on your hardware, you can use the QEMU system emulator to run
-coreboot virtually in QEMU.
-
-Please see <https://www.coreboot.org/QEMU> for details.
 
 
 Website and Mailing List
