@@ -29,6 +29,7 @@ Supported Hardware
 Coreboot supports a wide range of chipsets, devices, and mainboards. However this fork is mainly intended for the Lenovo Thinkpad T440P and T540P. 
 
 See <https://github.com/MrChromebox/coreboot> for Chromebook devices
+
 See <https://github.com/coreboot/coreboot> for any other device
 
 
