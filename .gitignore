@@ -10,6 +10,7 @@ defconfig
 .xcompile
 .ccwrap
 build/
+blobs/
 coreboot-builds/
 payloads/coreinfo/lpbuild/
 payloads/coreinfo/lp.config*
