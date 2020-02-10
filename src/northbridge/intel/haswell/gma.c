@@ -120,6 +120,7 @@ u32 map_oprom_vendev(u32 vendev)
 
 	case 0x80860422:		/* GT3 Desktop */
 	case 0x80860426:		/* GT3 Mobile */
+	case 0x80860d26:		/* GT3e Mobile */
 	case 0x8086042a:		/* GT3 Server */
 	case 0x80860a26:		/* GT3 ULT */
 
@@ -562,7 +563,7 @@ static const unsigned short pci_device_ids[] = {
 	0x0416, /* Mobile GT2 */
 	0x0426, /* Mobile GT3 */
 	0x0d16, /* Mobile 4+3 GT1 */
-	0x0d26, /* Mobile 4+3 GT2 */
+	0x0d26, /* Mobile 4+3 GT3e */
 	0x0d36, /* Mobile 4+3 GT3 */
 	0x0a06, /* ULT GT1 */
 	0x0a16, /* ULT GT2 */
