@@ -792,7 +792,7 @@ static const struct cpu_device_id cpu_table[] = {
 	{ X86_VENDOR_INTEL, 0x306c3 }, /* Intel Haswell C0 */
 	{ X86_VENDOR_INTEL, 0x40650 }, /* Intel Haswell ULT B0 */
 	{ X86_VENDOR_INTEL, 0x40651 }, /* Intel Haswell ULT B1 */
-	{ X86_VENDOR_INTEL, 0x40661 }, /* Intel Crystalwell B1 */
+	{ X86_VENDOR_INTEL, 0x40661 }, /* Intel Crystalwell C0 */
 	{ 0, 0 },
 };
 
